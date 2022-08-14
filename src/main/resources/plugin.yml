@@ -1,0 +1,7 @@
+main: me.okay.minetwitch.Minetwitch
+name: MineTwitch
+version: 1.0
+author: okay
+api-version: 1.19
+
+commands:
