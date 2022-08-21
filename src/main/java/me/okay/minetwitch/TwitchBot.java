@@ -66,9 +66,6 @@ public class TwitchBot implements Listener {
     }
 
     private void onChannelMessage(final ChannelMessageEvent event) {
-        System.out.println("[" + event.getChannel().getName() + "] " + event.getUser().getName() + ": " + event.getMessage());
-        twitchClient.getChat().sendMessage(channelName, "dumb");
-
         String message = plugin.getConfig().getString("share-chat.twitch-to-minecraft.format.unlinked");
         
         message = message.replaceAll("%twitch%", event.getUser().getName());
