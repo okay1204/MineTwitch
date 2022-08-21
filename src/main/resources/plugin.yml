@@ -5,3 +5,18 @@ author: okay
 api-version: 1.19
 
 commands:
+  minetwitch:
+    description: "Manage the minetwitch plugin."
+    usage: "/minetwitch"
+
+permissions:
+  minetwitch.admin:
+    description: "Allows use of all MineTwitch commands."
+    default: op
+    children:
+      minetwitch.reload: true
+
+  minetwitch.reload:
+    description: "Allows players to reload MineTwitch."
+    default: op
+  

@@ -31,9 +31,39 @@
            <version>1.19.2-R0.1-SNAPSHOT</version>
            <scope>provided</scope>
     </dependency>
+
+    <dependency>
+      <groupId>com.github.twitch4j</groupId>
+      <artifactId>twitch4j</artifactId>
+      <version>1.11.0</version>
+  </dependency>
 </dependencies>
 
   <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+            <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
+            <relocations>
+                <relocation>
+                    <pattern>com.github.twitch4j</pattern>
+                    <shadedPattern>me.okay1204.twitch4j</shadedPattern>
+                </relocation>
+            </relocations>
+        </configuration>
+        <executions>
+            <execution>
+                <phase>package</phase>
+                <goals>
+                    <goal>shade</goal>
+                </goals>
+            </execution>
+        </executions>
+     </plugin>
+    </plugins>
     <resources>
       <resource>
         <directory>src/main/resources</directory>
