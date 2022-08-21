@@ -6,9 +6,6 @@ twitch-info:
   # This is the name of the channel you want to connect to. Leave this as '' to connect to the channel logged into from the token.
   channel-name: ''
 
-# This is the minecraft username of the twitch streamer. This is mainly used by other add-ons.
-streamer-minecraft-name: 'some_username'
-
 # Command prefix for the twitch bot. This is the prefix that the bot will use to identify commands, and all add-ons will use this prefix as well.
 twitch-command-prefix: '!'
 
