@@ -110,8 +110,8 @@ public abstract class CustomSubcommand {
                 }
             }
 
-            boolean isSuccessful = onRun(sender, command, label, args);
-            if (!isSuccessful) {
+            CommandResult result = onRun(sender, command, label, args);
+            if (result == CommandResult.USAGE_FAILURE) {
                 // form a usage command that combines all subcommands
                 String allUsages = ColorFormat.colorize("&cUsages: \n");
                 for (CustomSubcommand subcommand : subcommands) {
@@ -119,11 +119,12 @@ public abstract class CustomSubcommand {
                 }
     
                 sender.sendMessage(allUsages);
-                return CommandResult.USAGE_FAILURE;
             }
-            else {
-                return CommandResult.SUCCESS;
+            else if (result == CommandResult.PERMISSION_FAILURE) {
+                sender.sendMessage(getPermissionMessage());
             }
+
+            return result;
         }
         else {
             if (permission != null && !sender.hasPermission(permission)) {
@@ -131,20 +132,21 @@ public abstract class CustomSubcommand {
                 return CommandResult.PERMISSION_FAILURE;
             }
             else {
-                boolean isSuccessful = onRun(sender, command, label, args);
-                if (isSuccessful) {
-                    return CommandResult.SUCCESS;
-                }
-                else {
+                CommandResult result = onRun(sender, command, label, args);
+                if (result == CommandResult.USAGE_FAILURE) {
                     sender.sendMessage(ColorFormat.colorize("&cUsage: ") + getFullUsage());
-                    return CommandResult.USAGE_FAILURE;
                 }
+                else if (result == CommandResult.PERMISSION_FAILURE) {
+                    sender.sendMessage(getPermissionMessage());
+                }
+
+                return result;
             }
         }
     };
 
-    public boolean onRun(CommandSender sender, CustomSubcommand command, String label, String[] args) {
-        return true;
+    public CommandResult onRun(CommandSender sender, CustomSubcommand command, String label, String[] args) {
+        return CommandResult.SUCCESS;
     };
 
     public List<String> onTabComplete(CommandSender sender, CustomSubcommand command, String label, String[] args) {

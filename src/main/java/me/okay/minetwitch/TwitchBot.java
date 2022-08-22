@@ -60,12 +60,14 @@ public class TwitchBot implements Listener {
         plugin.getLogger().info("Connecting to Twitch channel: " + channelName);
         twitchClient.getChat().joinChannel(channelName);
     
-        if (plugin.getConfig().getBoolean("share-chat.twitch-to-minecraft.enabled")) {
-            twitchClient.getEventManager().onEvent(ChannelMessageEvent.class, this::onChannelMessage);
-        }
+        twitchClient.getEventManager().onEvent(ChannelMessageEvent.class, this::onChannelMessage);
     }
 
     private void onChannelMessage(final ChannelMessageEvent event) {
+        if (!plugin.getConfig().getBoolean("share-chat.twitch-to-minecraft.enabled")) {
+            return;
+        }
+
         String message = plugin.getConfig().getString("share-chat.twitch-to-minecraft.format.unlinked");
         
         message = message.replaceAll("%twitch%", event.getUser().getName());

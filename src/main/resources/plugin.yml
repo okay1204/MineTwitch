@@ -15,8 +15,23 @@ permissions:
     default: op
     children:
       minetwitch.reload: true
+      minetwitch.broadcast: true
 
   minetwitch.reload:
     description: "Allows players to reload MineTwitch."
     default: op
   
+  minetwitch.broadcast:
+    description: "Allows players to enable/disable the broadcasting of twitch to minecraft chat or vice versa."
+    default: op
+    children:
+      minetwitch.broadcast.twitch-to-minecraft: true
+      minetwitch.broadcast.minecraft-to-twitch: true
+  
+  minetwitch.broadcast.twitch-to-minecraft:
+    description: "Allows players to enable/disable the broadcasting of twitch to minecraft chat."
+    default: op
+
+  minetwitch.broadcast.minecraft-to-twitch:
+    description: "Allows players to enable/disable the broadcasting of minecraft to twitch chat."
+    default: op
