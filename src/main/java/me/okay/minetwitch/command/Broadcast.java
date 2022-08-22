@@ -17,7 +17,7 @@ public class Broadcast extends CustomSubcommand {
             "broadcast",
             "Enable/disable the broadcasting of twitch to minecraft chat or vice versa.",
             "minetwitch.broadcast",
-            "broadcast <twitch-to-minecraft|minecraft-to-twitch> <true|false>"
+            "broadcast <twitchToMinecraft|minecraftToTwitch> <true|false>"
         );
 
         this.plugin = plugin;
@@ -43,7 +43,7 @@ public class Broadcast extends CustomSubcommand {
         String formattedValue = value ? "&aenabled" : "&cdisabled";
 
         String option = args[0];
-        if (option.equals("twitch-to-minecraft")) {
+        if (option.equals("twitchToMinecraft")) {
             if (!sender.hasPermission("minetwitch.broadcast.twitch-to-minecraft")) {
                 return CommandResult.PERMISSION_FAILURE;
             }
@@ -51,7 +51,7 @@ public class Broadcast extends CustomSubcommand {
             plugin.getConfig().set("share-chat.twitch-to-minecraft.enabled", value);
             sender.sendMessage(ColorFormat.colorize("&6Twitch to Minecraft chat sharing has been " + formattedValue + "."));
         }
-        else if (option.equals("minecraft-to-twitch")) {
+        else if (option.equals("minecraftToTwitch")) {
             if (!sender.hasPermission("minetwitch.broadcast.minecraft-to-twitch")) {
                 return CommandResult.PERMISSION_FAILURE;
             }
@@ -70,7 +70,7 @@ public class Broadcast extends CustomSubcommand {
     @Override
     public List<String> onTabComplete(CommandSender sender, CustomSubcommand command, String label, String[] args) {
         if (args.length == 1) {
-            return List.of(args[0], "twitch-to-minecraft", "minecraft-to-twitch");
+            return List.of(args[0], "twitchToMinecraft", "minecraftToTwitch");
         }
         else if (args.length == 2) {
             return List.of(args[1], "true", "false");

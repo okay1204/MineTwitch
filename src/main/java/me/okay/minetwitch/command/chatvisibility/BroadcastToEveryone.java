@@ -14,10 +14,10 @@ public class BroadcastToEveryone extends CustomSubcommand {
 
     public BroadcastToEveryone(Minetwitch plugin) {
         super(
-            "broadcast-to-everyone",
+            "broadcastToEveryone",
             "Enable/disable whether or not everyone can see Twitch chat in Minecraft.",
             "minetwitch.chatvisibility.broadcast-to-everyone",
-            "broadcast-to-everyone <true|false>"
+            "broadcastToEveryone <true|false>"
         );
 
         this.plugin = plugin;
