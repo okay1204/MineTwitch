@@ -50,3 +50,24 @@ permissions:
   minetwitch.chatvisibility.exceptions:
     description: "Allows players to add or remove players to and from the visibility exceptions list."
     default: op
+    children:
+      minetwitch.chatvisibility.exceptions.add: true
+      minetwitch.chatvisibility.exceptions.remove: true
+      minetwitch.chatvisibility.exceptions.list: true
+      minetwitch.chatvisibility.exceptions.clear: true
+
+  minetwitch.chatvisibility.exceptions.add:
+    description: "Allows players to add players to the visibility exceptions list."
+    default: op
+
+  minetwitch.chatvisibility.exceptions.remove:
+    description: "Allows players to remove players from the visibility exceptions list."
+    default: op
+  
+  minetwitch.chatvisibility.exceptions.list:
+    description: "Allows players to list the players on the visibility exceptions list."
+    default: op
+
+  minetwitch.chatvisibility.exceptions.clear:
+    description: "Allows players to clear the visibility exceptions list."
+    default: op
