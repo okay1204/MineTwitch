@@ -7,7 +7,7 @@ import me.okay.minetwitch.command.chatvisibility.exceptions.Exceptions;
 public class ChatVisibility extends CustomSubcommand {
     public ChatVisibility(Minetwitch plugin) {
         super(
-            "chatvisibility",
+            "chatVisibility",
             "Configure who can see the Twitch chat in Minecraft.",
             "minetwitch.chatvisibility"
         );

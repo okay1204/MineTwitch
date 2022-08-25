@@ -1,6 +1,5 @@
 package me.okay.minetwitch;
 
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.okay.minetwitch.command.MinetwitchCommand;
