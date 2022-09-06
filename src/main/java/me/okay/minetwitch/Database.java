@@ -26,7 +26,7 @@ public class Database {
             conn.prepareStatement("""
                 CREATE TABLE IF NOT EXISTS "LinkedAccounts" (
                     "minecraftUuid" TEXT NOT NULL,
-                    "twitchId" TEXT NOT NULL,
+                    "twitchId" TEXT NOT NULL
                 );
             """).execute();
 

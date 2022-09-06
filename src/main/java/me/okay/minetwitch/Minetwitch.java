@@ -1,13 +1,18 @@
 package me.okay.minetwitch;
 
+import java.util.Set;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.philippheuer.events4j.core.EventManager;
 import com.github.philippheuer.events4j.simple.SimpleEventHandler;
 
 import me.okay.minetwitch.command.MinetwitchCommand;
+import me.okay.minetwitch.twitch.TwitchCommand;
+import me.okay.minetwitch.twitch.TwitchHandler;
+import me.okay.minetwitch.twitch.builtincommands.Link;
 public class Minetwitch extends JavaPlugin {
-    private TwitchBot twitchBot;
+    private TwitchHandler twitchHandler;
     private Database database;
 
     private EventManager twitch4jEventManager;
@@ -23,7 +28,9 @@ public class Minetwitch extends JavaPlugin {
 
         database = new Database(this);
 
-        twitchBot = new TwitchBot(this);
+        twitchHandler = new TwitchHandler(this);
+
+        MinetwitchApi.registerCommand(new TwitchCommand(this, "link", Set.of(), new Link()));
         
         // Commands
         new MinetwitchCommand(this);
@@ -31,7 +38,7 @@ public class Minetwitch extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        twitchBot.disconnect();
+        twitchHandler.disconnect();
         twitch4jEventManager.close();
     }
 
@@ -39,8 +46,16 @@ public class Minetwitch extends JavaPlugin {
         return database;
     }
 
+    public TwitchHandler getTwitchHandler() {
+        return twitchHandler;
+    }
+
+    public EventManager getTwitch4jEventManager() {
+        return twitch4jEventManager;
+    }
+
     public void reloadTwitchBot() {
-        twitchBot.disconnect();
-        twitchBot = new TwitchBot(this);
+        twitchHandler.disconnect();
+        twitchHandler = new TwitchHandler(this);
     }
 }

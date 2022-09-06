@@ -1,4 +1,4 @@
-package me.okay.minetwitch;
+package me.okay.minetwitch.customcommand;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
+import me.okay.minetwitch.Minetwitch;
 import me.okay.minetwitch.utils.ColorFormat;
 
 public abstract class CustomSubcommand {

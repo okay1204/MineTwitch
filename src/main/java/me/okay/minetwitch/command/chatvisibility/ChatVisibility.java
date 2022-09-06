@@ -1,8 +1,8 @@
 package me.okay.minetwitch.command.chatvisibility;
 
-import me.okay.minetwitch.CustomSubcommand;
 import me.okay.minetwitch.Minetwitch;
 import me.okay.minetwitch.command.chatvisibility.exceptions.Exceptions;
+import me.okay.minetwitch.customcommand.CustomSubcommand;
 
 public class ChatVisibility extends CustomSubcommand {
     public ChatVisibility(Minetwitch plugin) {

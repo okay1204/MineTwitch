@@ -1,30 +1,32 @@
 twitch-info:
-  # This is your twitch oauth token. You can generate one here: https://twitchapps.com/tmi/
-  # Messages will be sent using this account. You can create another twitch account and use its token if you want the messages to come from another user.
+  # This is your Twitch oauth token. You can generate one here: https://twitchapps.com/tmi/
+  # Messages will be sent using this account. You can create another Twitch account and use its token if you want the messages to come from another user.
   token: 'oauth:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
   # This is the name of the channel you want to connect to. Leave this as '' to connect to the channel logged into from the token.
   channel-name: ''
 
-# Command prefix for the twitch bot. This is the prefix that the bot will use to identify commands, and all add-ons will use this prefix as well.
+# Command prefix for the Twitch bot. This is the prefix that the bot will use to identify commands, and all add-ons will use this prefix as well.
 twitch-command-prefix: '!'
 
 share-chat:
   twitch-to-minecraft:
-    #true/false: Whether or not to broadcast twitch chat in your minecraft chat.
+    #true/false: Whether or not to broadcast Twitch chat in your Minecraft chat.
     enabled: true
     
     format:
-      # The format that will be used if the player has NOT linked their twitch account to their minecraft account. Color codes are supported using the & symbol. You can use the following variables:
-      # %twitch% - The twitch name
-      # %twitch-color% - The twitch user's color code
+      # The format that will be used if the player has NOT linked their Twitch account to their Minecraft account. Color codes are supported using the & symbol. You can use the following variables:
+      # %twitch% - The Twitch name
+      # %twitch-color% - The Twitch user's color code
       # %message% - The message that was sent
       unlinked: '&7[&#9146FFTW&7] %twitch-color%%twitch%&7: &f%message%'
       
-      # The format that will be used if the player has linked their twitch account to their minecraft account. You can use the variables from above as well as:
-      # %player% - The twitch user's minecraft name
+      # The format that will be used if the player has linked their Twitch account to their Minecraft account. You can use the variables from above as well as:
+      # %player% - The Twitch user's Minecraft name
       linked: '&7[&#9146FFTW&7] %twitch-color%%twitch%&7 &8(%player%)&7: &f%message%'
 
+    # If false, the bot will share messages to Minecraft chat even if the message starts with the Twitch bot's command prefix (specified in twitch-command-prefix)
+    ignore-commands: true
 
     # These two settings are used to set who sees the messages.
     broadcast-to-everyone: true
@@ -32,9 +34,9 @@ share-chat:
     # If broadcast-to-everyone is true, then everyone will see the messages, except those who are in the exceptions list.
     # If broadcast-to-everyone is false, then only those who are in the exceptions list will see the messages.
 
-    # You may enter either the minecraft name or minecraft uuid of the player. UUIDs are preferred since they cannot be changed.
+    # You may enter either the Minecraft name or Minecraft uuid of the player. UUIDs are preferred since they cannot be changed.
 
-    # Example where everyone EXCEPT players 'okay1204', 'bobman', and uuid '640ea07a-365d-4837-91c7-2d264fbde08f' will see twitch messages:
+    # Example where everyone EXCEPT players 'okay1204', 'bobman', and uuid '640ea07a-365d-4837-91c7-2d264fbde08f' will see Twitch messages:
 
     # broadcast-to-everyone: true
     # exceptions:
@@ -43,17 +45,17 @@ share-chat:
     # - '640ea07a-365d-4837-91c7-2d264fbde08f'
     
   minecraft-to-twitch:
-    #true/false: Whether or not to broadcast minecraft chat in your twitch chat.
+    #true/false: Whether or not to broadcast Minecraft chat in your Twitch chat.
     enabled: true
 
     format:
-      # The format that will be used if the player has NOT linked their twitch account to their minecraft account. You can use the following variables:
+      # The format that will be used if the player has NOT linked their Twitch account to their Minecraft account. You can use the following variables:
       # %player% - The player's name
       # %message% - The message that was sent
       unlinked: '[MC] %player%: %message%'
 
-      # The format that will be used if the player has linked their twitch account to their minecraft account. You can use the variables from above as well as:
-      # %twitch% - The player's twitch name
+      # The format that will be used if the player has linked their Twitch account to their Minecraft account. You can use the variables from above as well as:
+      # %twitch% - The player's Twitch name
       linked: '[MC] %player% (%twitch%): %message%'
   
 

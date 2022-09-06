@@ -1,4 +1,4 @@
-package me.okay.minetwitch;
+package me.okay.minetwitch.customcommand;
 
 import java.util.List;
 
@@ -7,6 +7,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
+
+import me.okay.minetwitch.Minetwitch;
 
 public abstract class CustomCommand extends CustomSubcommand implements CommandExecutor, TabCompleter {
     private PluginCommand command;

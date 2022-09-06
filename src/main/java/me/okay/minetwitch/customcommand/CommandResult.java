@@ -1,4 +1,4 @@
-package me.okay.minetwitch;
+package me.okay.minetwitch.customcommand;
 
 public enum CommandResult {
     SUCCESS,

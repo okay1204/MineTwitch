@@ -8,9 +8,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
-import me.okay.minetwitch.CommandResult;
-import me.okay.minetwitch.CustomSubcommand;
 import me.okay.minetwitch.Minetwitch;
+import me.okay.minetwitch.customcommand.CommandResult;
+import me.okay.minetwitch.customcommand.CustomSubcommand;
 import me.okay.minetwitch.utils.ColorFormat;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
