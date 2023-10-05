@@ -8,12 +8,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 
-import me.okay.minetwitch.Minetwitch;
+import me.okay.minetwitch.MinetwitchPlugin;
 
 public abstract class CustomCommand extends CustomSubcommand implements CommandExecutor, TabCompleter {
     private PluginCommand command;
 
-    public CustomCommand(Minetwitch plugin, String commandName) {
+    public CustomCommand(MinetwitchPlugin plugin, String commandName) {
         super(plugin, commandName);
         
         command = plugin.getCommand(commandName);
@@ -25,6 +25,11 @@ public abstract class CustomCommand extends CustomSubcommand implements CommandE
     }
 
     @Override
+    public CommandResult run(CommandSender sender, CustomSubcommand command, String label, String[] args) {
+        return CommandResult.USAGE_FAILURE;
+    };
+
+    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {   
         super.onCommand(sender, this, label, args);
 
@@ -33,6 +38,11 @@ public abstract class CustomCommand extends CustomSubcommand implements CommandE
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        return super.onTabComplete(sender, this, label, args);
+        return tabComplete(sender, this, label, args);
+    }
+
+    @Override
+    public List<String> tabComplete(CommandSender sender, CustomSubcommand command, String label, String[] args) {
+        return super.tabComplete(sender, command, label, args);
     }
 }

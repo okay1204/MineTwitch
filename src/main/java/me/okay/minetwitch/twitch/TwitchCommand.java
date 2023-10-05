@@ -5,6 +5,8 @@ import java.util.Set;
 
 import org.bukkit.plugin.Plugin;
 
+import com.github.twitch4j.chat.events.channel.ChannelMessageEvent;
+
 public class TwitchCommand {
     private Plugin plugin;
     private String name;
@@ -49,7 +51,7 @@ public class TwitchCommand {
         return executor;
     }
 
-    public void execute(TwitchBot twitchBot, String label, String[] args) {
-        executor.execute(twitchBot, label, args, this);
+    public void execute(TwitchBot twitchBot, ChannelMessageEvent messageEvent, String[] args, String label) {
+        executor.execute(twitchBot, messageEvent, args, label, this);
     }
 }

@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 import net.md_5.bungee.api.ChatColor;
 
-public class ColorFormat {
+public class TextFormat {
     private static Pattern ampersandHexPattern = Pattern.compile("&#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})");
 
     // returns the string colored by &

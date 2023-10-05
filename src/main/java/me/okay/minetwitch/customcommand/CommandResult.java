@@ -1,11 +1,7 @@
 package me.okay.minetwitch.customcommand;
 
 public enum CommandResult {
-    SUCCESS,
+    FINISHED,
     USAGE_FAILURE,
     PERMISSION_FAILURE;
-
-    public boolean isSuccess() {
-        return this == SUCCESS;
-    }
 }

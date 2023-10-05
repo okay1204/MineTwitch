@@ -4,15 +4,15 @@ import java.util.List;
 
 import org.bukkit.command.CommandSender;
 
-import me.okay.minetwitch.Minetwitch;
+import me.okay.minetwitch.MinetwitchPlugin;
 import me.okay.minetwitch.customcommand.CommandResult;
 import me.okay.minetwitch.customcommand.CustomSubcommand;
-import me.okay.minetwitch.utils.ColorFormat;
+import me.okay.minetwitch.utils.TextFormat;
 
 public class Broadcast extends CustomSubcommand {
-    private Minetwitch plugin;
+    private MinetwitchPlugin plugin;
 
-    public Broadcast(Minetwitch plugin) {
+    public Broadcast(MinetwitchPlugin plugin) {
         super(
             "broadcast",
             "Enable/disable the broadcasting of twitch to minecraft chat or vice versa.",
@@ -24,7 +24,7 @@ public class Broadcast extends CustomSubcommand {
     }
 
     @Override
-    public CommandResult onRun(CommandSender sender, CustomSubcommand command, String label, String[] args) {
+    public CommandResult run(CommandSender sender, CustomSubcommand command, String label, String[] args) {
         if (args.length < 2) {
             return CommandResult.USAGE_FAILURE;
         }
@@ -49,7 +49,7 @@ public class Broadcast extends CustomSubcommand {
             }
             
             plugin.getConfig().set("share-chat.twitch-to-minecraft.enabled", value);
-            sender.sendMessage(ColorFormat.colorize("&6Twitch to Minecraft chat sharing has been " + formattedValue + "."));
+            sender.sendMessage(TextFormat.colorize("&6Twitch to Minecraft chat sharing has been " + formattedValue + "."));
         }
         else if (option.equals("minecraftToTwitch")) {
             if (!sender.hasPermission("minetwitch.broadcast.minecraft-to-twitch")) {
@@ -57,18 +57,18 @@ public class Broadcast extends CustomSubcommand {
             }
 
             plugin.getConfig().set("share-chat.minecraft-to-twitch.enabled", value);
-            sender.sendMessage(ColorFormat.colorize("&6Minecraft to Twitch chat sharing has been " + formattedValue + "."));
+            sender.sendMessage(TextFormat.colorize("&6Minecraft to Twitch chat sharing has been " + formattedValue + "."));
         }
         else {
             return CommandResult.USAGE_FAILURE;
         }
         plugin.saveConfig();
 
-        return CommandResult.SUCCESS;
+        return CommandResult.FINISHED;
     };
 
     @Override
-    public List<String> onTabComplete(CommandSender sender, CustomSubcommand command, String label, String[] args) {
+    public List<String> tabComplete(CommandSender sender, CustomSubcommand command, String label, String[] args) {
         if (args.length == 1) {
             return List.of(args[0], "twitchToMinecraft", "minecraftToTwitch");
         }

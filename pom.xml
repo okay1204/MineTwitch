@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>me.okay1204</groupId>
@@ -18,51 +20,52 @@
   <repositories>
     <!-- This adds the Spigot Maven repository to the build -->
     <repository>
-        <id>spigot-repo</id>
-        <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+      <id>spigot-repo</id>
+      <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
     </repository>
-</repositories>
+  </repositories>
 
-<dependencies>
-    <!--This adds the Spigot API artifact to the build -->
+  <dependencies>
+    <!--This
+    adds the Spigot API artifact to the build -->
     <dependency>
-           <groupId>org.spigotmc</groupId>
-           <artifactId>spigot-api</artifactId>
-           <version>1.19.2-R0.1-SNAPSHOT</version>
-           <scope>provided</scope>
+      <groupId>org.spigotmc</groupId>
+      <artifactId>spigot-api</artifactId>
+      <version>1.20.2-R0.1-SNAPSHOT</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>com.github.twitch4j</groupId>
       <artifactId>twitch4j</artifactId>
-      <version>1.11.0</version>
-  </dependency>
-</dependencies>
+      <version>1.17.0</version>
+    </dependency>
+  </dependencies>
 
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.3.0</version>
+        <version>3.5.1</version>
         <configuration>
-            <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
-            <relocations>
-                <relocation>
-                    <pattern>com.github.twitch4j</pattern>
-                    <shadedPattern>me.okay1204.twitch4j</shadedPattern>
-                </relocation>
-            </relocations>
+          <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
+          <relocations>
+            <relocation>
+              <pattern>com.github.twitch4j</pattern>
+              <shadedPattern>me.okay1204.twitch4j</shadedPattern>
+            </relocation>
+          </relocations>
         </configuration>
         <executions>
-            <execution>
-                <phase>package</phase>
-                <goals>
-                    <goal>shade</goal>
-                </goals>
-            </execution>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
         </executions>
-     </plugin>
+      </plugin>
     </plugins>
     <resources>
       <resource>

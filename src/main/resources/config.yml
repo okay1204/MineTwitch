@@ -11,7 +11,7 @@ twitch-command-prefix: '!'
 
 share-chat:
   twitch-to-minecraft:
-    #true/false: Whether or not to broadcast Twitch chat in your Minecraft chat.
+    # true/false: Whether or not to broadcast Twitch chat in your Minecraft chat.
     enabled: true
     
     format:
@@ -25,27 +25,11 @@ share-chat:
       # %player% - The Twitch user's Minecraft name
       linked: '&7[&#9146FFTW&7] %twitch-color%%twitch%&7 &8(%player%)&7: &f%message%'
 
-    # If false, the bot will share messages to Minecraft chat even if the message starts with the Twitch bot's command prefix (specified in twitch-command-prefix)
+    # If true, the bot not share messages to Minecraft chat if the message starts with the Twitch bot's command prefix (specified in twitch-command-prefix)
     ignore-commands: true
-
-    # These two settings are used to set who sees the messages.
-    broadcast-to-everyone: true
-    exceptions:
-    # If broadcast-to-everyone is true, then everyone will see the messages, except those who are in the exceptions list.
-    # If broadcast-to-everyone is false, then only those who are in the exceptions list will see the messages.
-
-    # You may enter either the Minecraft name or Minecraft uuid of the player. UUIDs are preferred since they cannot be changed.
-
-    # Example where everyone EXCEPT players 'okay1204', 'bobman', and uuid '640ea07a-365d-4837-91c7-2d264fbde08f' will see Twitch messages:
-
-    # broadcast-to-everyone: true
-    # exceptions:
-    # - 'okay1204'
-    # - 'bobman'
-    # - '640ea07a-365d-4837-91c7-2d264fbde08f'
     
   minecraft-to-twitch:
-    #true/false: Whether or not to broadcast Minecraft chat in your Twitch chat.
+    # true/false: Whether or not to broadcast Minecraft chat in your Twitch chat.
     enabled: true
 
     format:
@@ -57,7 +41,22 @@ share-chat:
       # The format that will be used if the player has linked their Twitch account to their Minecraft account. You can use the variables from above as well as:
       # %twitch% - The player's Twitch name
       linked: '[MC] %player% (%twitch%): %message%'
-  
 
+# The amount of time in minutes that the plugin will wait between each data save, which updates the database and frees up memory.
+# The lower the number, the more CPU usage will be used (it will not be much if at all). If the server is unexpectedly shut down
+# (i.e. a crash or power loss), the plugin will roll back to the last save. You can think of this as an "auto-save" interval.
+flush-interval: 10
 
-  
+mysql:
+  # Whether or not to use MySQL. If this is set to false, the plugin will use SQLite and ignore the rest of the MySQL settings below.
+  enabled: false
+  # The host of the MySQL server.
+  host: localhost
+  # The port of the MySQL server.
+  port: 3306
+  # The name of the database to use.
+  database: minetwitch
+  # The username to use to connect to the database.
+  username: root
+  # The password to use to connect to the database.
+  password: password

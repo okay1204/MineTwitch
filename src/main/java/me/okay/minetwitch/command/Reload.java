@@ -2,15 +2,15 @@ package me.okay.minetwitch.command;
 
 import org.bukkit.command.CommandSender;
 
-import me.okay.minetwitch.Minetwitch;
+import me.okay.minetwitch.MinetwitchPlugin;
 import me.okay.minetwitch.customcommand.CommandResult;
 import me.okay.minetwitch.customcommand.CustomSubcommand;
-import me.okay.minetwitch.utils.ColorFormat;
+import me.okay.minetwitch.utils.TextFormat;
 
 public class Reload extends CustomSubcommand {
-    private Minetwitch plugin;
+    private MinetwitchPlugin plugin;
 
-    public Reload(Minetwitch plugin) {
+    public Reload(MinetwitchPlugin plugin) {
         super(
             "reload",
             "Reloads the configuration file.",
@@ -21,10 +21,11 @@ public class Reload extends CustomSubcommand {
     }
 
     @Override
-    public CommandResult onRun(CommandSender sender, CustomSubcommand command, String label, String[] args) {
+    public CommandResult run(CommandSender sender, CustomSubcommand command, String label, String[] args) {
         plugin.reloadConfig();
-        plugin.reloadTwitchBot();
-        sender.sendMessage(ColorFormat.colorize("&aMinetwitch has been reloaded."));
-        return CommandResult.SUCCESS;
+        plugin.onDisable();
+        plugin.onEnable();
+        sender.sendMessage(TextFormat.colorize("&aMinetwitch has been reloaded."));
+        return CommandResult.FINISHED;
     };
 }

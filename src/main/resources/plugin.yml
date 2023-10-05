@@ -1,8 +1,8 @@
-main: me.okay.minetwitch.Minetwitch
+main: me.okay.minetwitch.MinetwitchPlugin
 name: MineTwitch
 version: 1.0
 author: okay
-api-version: 1.19
+api-version: 1.20
 
 commands:
   minetwitch:
@@ -10,64 +10,33 @@ commands:
     usage: "/minetwitch"
 
 permissions:
-  minetwitch.admin:
-    description: "Allows use of all MineTwitch commands."
-    default: op
-    children:
-      minetwitch.reload: true
-      minetwitch.broadcast: true
+  minetwitch.command.link:
+    description: "Allows players to link their Twitch account to their Minecraft account using /minetwitch link."
+    default: true
 
-  minetwitch.reload:
-    description: "Allows players to reload MineTwitch."
-    default: op
-  
-  minetwitch.broadcast:
-    description: "Allows players to enable/disable the broadcasting of twitch to minecraft chat or vice versa."
+  minetwitch.admin.command:
+    description: "Allows the usage of all admin commands."
     default: op
     children:
-      minetwitch.broadcast.twitch-to-minecraft: true
-      minetwitch.broadcast.minecraft-to-twitch: true
+      minetwitch.admin.command.reload: true
+      minetwitch.admin.command.broadcast: true
+
+  minetwitch.admin.command.reload:
+    description: "Allows players to reload MineTwitch using /minetwitch reload."
+    default: op
   
-  minetwitch.broadcast.twitch-to-minecraft:
+  minetwitch.admin.command.broadcast:
+    description: "Allows players to enable/disable the broadcasting of twitch to minecraft chat or vice versa using /minetwitch broadcast."
+    default: op
+    children:
+      minetwitch.admin.command.broadcast.twitch-to-minecraft: true
+      minetwitch.admin.command.broadcast.minecraft-to-twitch: true
+  
+  minetwitch.admin.command.broadcast.twitch-to-minecraft:
     description: "Allows players to enable/disable the broadcasting of twitch to minecraft chat."
     default: op
 
-  minetwitch.broadcast.minecraft-to-twitch:
+  minetwitch.admin.command.broadcast.minecraft-to-twitch:
     description: "Allows players to enable/disable the broadcasting of minecraft to twitch chat."
     default: op
 
-  minetwitch.chatvisibility:
-    description: "Allows players to configure who can see Twitch chat in Minecraft."
-    default: op
-    children:
-      minetwitch.chatvisibility.broadcast-to-everyone: true
-      minetwitch.chatvisibility.exceptions: true
-    
-  minetwitch.chatvisibility.broadcast-to-everyone:
-    description: "Allows players to enable/disable whether or not everyone can see Twitch chat in Minecraft."
-    default: op
-
-  minetwitch.chatvisibility.exceptions:
-    description: "Allows players to add or remove players to and from the visibility exceptions list."
-    default: op
-    children:
-      minetwitch.chatvisibility.exceptions.add: true
-      minetwitch.chatvisibility.exceptions.remove: true
-      minetwitch.chatvisibility.exceptions.list: true
-      minetwitch.chatvisibility.exceptions.clear: true
-
-  minetwitch.chatvisibility.exceptions.add:
-    description: "Allows players to add players to the visibility exceptions list."
-    default: op
-
-  minetwitch.chatvisibility.exceptions.remove:
-    description: "Allows players to remove players from the visibility exceptions list."
-    default: op
-  
-  minetwitch.chatvisibility.exceptions.list:
-    description: "Allows players to list the players on the visibility exceptions list."
-    default: op
-
-  minetwitch.chatvisibility.exceptions.clear:
-    description: "Allows players to clear the visibility exceptions list."
-    default: op

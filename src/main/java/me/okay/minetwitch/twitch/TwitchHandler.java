@@ -17,26 +17,23 @@ import com.github.twitch4j.auth.providers.TwitchIdentityProvider;
 import com.github.twitch4j.chat.events.channel.ChannelMessageEvent;
 import com.github.twitch4j.helix.domain.UserList;
 
-import me.okay.minetwitch.Minetwitch;
-import me.okay.minetwitch.utils.ColorFormat;
+import me.okay.minetwitch.MinetwitchPlugin;
+import me.okay.minetwitch.utils.TextFormat;
 
 public class TwitchHandler implements Listener {
-    private final String COMMAND_PREFIX;
 
-    private Minetwitch plugin;
+    private MinetwitchPlugin plugin;
     private String channelName;
     private TwitchClient twitchClient;
     private TwitchBot twitchBot;
     private List<TwitchCommand> commands = new ArrayList<>();
 
-    public TwitchHandler(Minetwitch plugin) {
+    public TwitchHandler(MinetwitchPlugin plugin) {
         this.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
 
-        COMMAND_PREFIX = plugin.getConfig().getString("twitch-command-prefix", "!");
-
         // chat credentials
-        OAuth2Credential credentials = new OAuth2Credential("twitch", plugin.getConfig().getString("twitch-info.token", ""));
+        OAuth2Credential credentials = new OAuth2Credential("twitch", plugin.getConfig().getString("twitch-info.token"));
 
         TwitchIdentityProvider identityProvider = new TwitchIdentityProvider(null, null, null);
 
@@ -53,9 +50,8 @@ public class TwitchHandler implements Listener {
             .withEnableHelix(true)
             .withEventManager(plugin.getTwitch4jEventManager())
             .build();
-    
             
-        channelName = plugin.getConfig().getString("twitch-info.channel-name", "");
+        channelName = plugin.getConfig().getString("twitch-info.channel-name");
         if (channelName.length() == 0) {
             channelName = identityProvider.getAdditionalCredentialInformation(credentials).map(OAuth2Credential::getUserName).orElse(null);
         }
@@ -80,7 +76,7 @@ public class TwitchHandler implements Listener {
         }
 
         boolean shareMessage = true;
-        if (event.getMessage().startsWith(COMMAND_PREFIX)) {
+        if (event.getMessage().startsWith(plugin.getCommandPrefix())) {
             shareMessage = !plugin.getConfig().getBoolean("share-chat.twitch-to-minecraft.ignore-commands");
             
             // get first space index
@@ -89,34 +85,34 @@ public class TwitchHandler implements Listener {
                 spaceIndex = event.getMessage().length();
             }
 
-            String commandString = event.getMessage().substring(COMMAND_PREFIX.length(), spaceIndex);
-            String plugin, commandName;
+            String commandString = event.getMessage().substring(plugin.getCommandPrefix().length(), spaceIndex);
+            String pluginName, commandName;
 
             if (commandString.contains(":")) {
-                String[] split = commandString.split(":");
-                plugin = split[0];
-                commandName = split[1];
+                int colonIndex = commandString.indexOf(':');
+
+                // assign plugin to everything before the colon
+                pluginName = commandString.substring(0, colonIndex);
+
+                // assign commandName to everything after the colon
+                commandName = commandString.substring(colonIndex + 1);
             }
             else {
-                plugin = null;
+                pluginName = null;
                 commandName = commandString;
             }
 
-            System.out.println("commandName: " + commandName + " plugin: " + (plugin == null ? "null" : plugin));
-
             for (TwitchCommand command : commands) {
-                if (plugin == null || command.getPlugin().getName().toLowerCase().equals(plugin)) {
-                    if (command.getName().equals(commandName) || command.getAliases().contains(commandName)) {
-                        // split rest of message into arguments without any leading/trailing spaces
-                        String argString = event.getMessage().substring(spaceIndex).trim();
-                        String[] args = argString.split(" ");
-                        if (args.length == 1 && args[0].length() == 0) {
-                            args = new String[0];
-                        }
-
-                        command.execute(twitchBot, commandName, args);
-                        break;
+                if ((pluginName == null || command.getPlugin().getName().toLowerCase().equals(pluginName)) && (command.getName().equals(commandName) || command.getAliases().contains(commandName))) {
+                    // split rest of message into arguments without any leading/trailing spaces
+                    String argString = event.getMessage().substring(spaceIndex).trim();
+                    String[] args = argString.split(" ");
+                    if (args.length == 1 && args[0].length() == 0) {
+                        args = new String[0];
                     }
+
+                    command.execute(twitchBot, event, args, commandName);
+                    break;
                 }
             }
         }
@@ -127,8 +123,8 @@ public class TwitchHandler implements Listener {
             message = message.replaceAll("%twitch%", event.getUser().getName());
             message = message.replaceAll("%twitch-color%", "&" + event.getMessageEvent().getTagValue("color").orElse("4"));
             
-            message = ColorFormat.formatHexCodes(message);
-            message = ColorFormat.colorize(message);
+            message = TextFormat.formatHexCodes(message);
+            message = TextFormat.colorize(message);
             message = message.replaceAll("%message%", event.getMessage());
     
             Bukkit.getServer().broadcastMessage(message);

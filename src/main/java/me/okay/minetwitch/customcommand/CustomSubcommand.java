@@ -7,8 +7,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import me.okay.minetwitch.Minetwitch;
-import me.okay.minetwitch.utils.ColorFormat;
+import me.okay.minetwitch.MinetwitchPlugin;
+import me.okay.minetwitch.utils.TextFormat;
 
 public abstract class CustomSubcommand {
     protected static final String NO_PERMS_MESSAGE = ChatColor.RED + "I'm sorry, but you do not have permission to perform this command. " +
@@ -38,7 +38,7 @@ public abstract class CustomSubcommand {
         this.permissionMessage = permissionMessage;
     }
 
-    public CustomSubcommand(Minetwitch plugin, String name) {
+    public CustomSubcommand(MinetwitchPlugin plugin, String name) {
         this.name = name;
         Command command = plugin.getCommand(name);
         this.description = command.getDescription();
@@ -111,10 +111,10 @@ public abstract class CustomSubcommand {
                 }
             }
 
-            CommandResult result = onRun(sender, command, label, args);
+            CommandResult result = run(sender, command, label, args);
             if (result == CommandResult.USAGE_FAILURE) {
                 // form a usage command that combines all subcommands
-                String allUsages = ColorFormat.colorize("&cUsages: \n");
+                String allUsages = TextFormat.colorize("&cUsages: \n");
                 for (CustomSubcommand subcommand : subcommands) {
                     allUsages += subcommand.getFullUsage() + "\n";
                 }
@@ -133,9 +133,9 @@ public abstract class CustomSubcommand {
                 return CommandResult.PERMISSION_FAILURE;
             }
             else {
-                CommandResult result = onRun(sender, command, label, args);
+                CommandResult result = run(sender, command, label, args);
                 if (result == CommandResult.USAGE_FAILURE) {
-                    sender.sendMessage(ColorFormat.colorize("&cUsage: ") + getFullUsage());
+                    sender.sendMessage(TextFormat.colorize("&cUsage: ") + getFullUsage());
                 }
                 else if (result == CommandResult.PERMISSION_FAILURE) {
                     sender.sendMessage(getPermissionMessage());
@@ -146,11 +146,11 @@ public abstract class CustomSubcommand {
         }
     };
 
-    public CommandResult onRun(CommandSender sender, CustomSubcommand command, String label, String[] args) {
-        return CommandResult.SUCCESS;
+    public CommandResult run(CommandSender sender, CustomSubcommand command, String label, String[] args) {
+        return CommandResult.USAGE_FAILURE;
     };
 
-    public List<String> onTabComplete(CommandSender sender, CustomSubcommand command, String label, String[] args) {
+    public List<String> tabComplete(CommandSender sender, CustomSubcommand command, String label, String[] args) {
         if (getSubcommands().size() > 0) {
             List<String> tabCompleteStrings = new ArrayList<String>();
 
@@ -164,7 +164,7 @@ public abstract class CustomSubcommand {
             else {
                 for (CustomSubcommand subcommand : getSubcommands()) {
                     if (subcommand.getName().equals(args[0]) && sender.hasPermission(subcommand.getPermission())) {
-                        tabCompleteStrings.addAll(subcommand.onTabComplete(sender, this, label, cutOffFirstArg(args)));
+                        tabCompleteStrings.addAll(subcommand.tabComplete(sender, this, label, cutOffFirstArg(args)));
                     }
                 }
             }
@@ -175,4 +175,3 @@ public abstract class CustomSubcommand {
         return List.of();
     }
 }
-
