@@ -12,6 +12,7 @@ twitch-command-prefix: '!'
 share-chat:
   twitch-to-minecraft:
     # true/false: Whether or not to broadcast Twitch chat in your Minecraft chat.
+    # If true, only players with the permission "minetwitch.broadcast.twitch-to-minecraft" will be able to see the messages. This permission is given to all players by default.
     enabled: true
     
     format:
@@ -30,6 +31,7 @@ share-chat:
     
   minecraft-to-twitch:
     # true/false: Whether or not to broadcast Minecraft chat in your Twitch chat.
+    # If true, only players with the permission "minetwitch.broadcast.minecraft-to-twitch" will have their messages broadcasted to Twitch. This permission is given to all players by default.
     enabled: true
 
     format:

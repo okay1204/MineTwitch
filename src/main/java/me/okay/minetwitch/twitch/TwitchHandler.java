@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -127,13 +128,24 @@ public class TwitchHandler implements Listener {
             message = TextFormat.colorize(message);
             message = message.replaceAll("%message%", event.getMessage());
     
-            Bukkit.getServer().broadcastMessage(message);
+            // Bukkit.getServer().broadcastMessage(message);
+            // Send message to all players who have permission
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                if (player.hasPermission("minetwitch.broadcast.twitch-to-minecraft")) {
+                    player.sendMessage(message);
+                }
+            }
         }
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     private void onChat(final AsyncPlayerChatEvent event) {
         if (!plugin.getConfig().getBoolean("share-chat.minecraft-to-twitch.enabled")) {
+            return;
+        }
+
+        // Do not share if player does not have permission
+        if (!event.getPlayer().hasPermission("minetwitch.broadcast.minecraft-to-twitch")) {
             return;
         }
         

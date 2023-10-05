@@ -10,6 +10,23 @@ commands:
     usage: "/minetwitch"
 
 permissions:
+  # General permissions
+  minetwitch.broadcast:
+    description: "Whether players can broadcast or read messages to/from Twitch chat."
+    default: true
+    children:
+      minetwitch.broadcast.twitch-to-minecraft: true
+      minetwitch.broadcast.minecraft-to-twitch: true
+
+  minetwitch.broadcast.twitch-to-minecraft:
+    description: "Whether players can see messages from Twitch chat in Minecraft chat."
+    default: true
+
+  minetwitch.broadcast.minecraft-to-twitch:
+    description: "Whether or not Minecraft messages from this player will broadcast to Twitch chat."
+    default: true
+
+  # Command permissions
   minetwitch.command.link:
     description: "Allows players to link their Twitch account to their Minecraft account using /minetwitch link."
     default: true
