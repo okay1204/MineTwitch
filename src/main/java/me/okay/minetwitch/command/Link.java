@@ -38,7 +38,7 @@ public class Link extends CustomSubcommand {
         Player player = (Player) sender;
 
         // Check if the player is already linked
-        if (plugin.getLinkedAccountsManager().getTwitchId(player.getUniqueId()) != null) {
+        if (plugin.getLinkedAccountsManager().getTwitchId(player.getUniqueId()).isPresent()) {
             sender.sendMessage(TextFormat.colorize("&cYou are already linked to a Twitch account! Please unlink your current account first using &4/minetwitch unlink&c."));
             return CommandResult.FINISHED;
         }

@@ -31,7 +31,7 @@ public class Unlink extends CustomSubcommand {
         Player player = (Player) sender;
 
         // Check if the player is not linked
-        if (plugin.getLinkedAccountsManager().getTwitchId(player.getUniqueId()) == null) {
+        if (plugin.getLinkedAccountsManager().getTwitchId(player.getUniqueId()).isEmpty()) {
             sender.sendMessage(TextFormat.colorize("&cYou are not linked to a Twitch account!"));
             return CommandResult.FINISHED;
         }

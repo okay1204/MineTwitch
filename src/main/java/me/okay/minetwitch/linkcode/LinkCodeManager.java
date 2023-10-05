@@ -45,7 +45,7 @@ public class LinkCodeManager {
         return null;
     }
 
-    public void removeCodes(UUID minecraftUuid, String twitchId) {
+    public void removeCodes(UUID minecraftUuid) {
         linkCodes.remove(minecraftUuid);
         linkExpireTasks.get(minecraftUuid).cancel();
         linkExpireTasks.remove(minecraftUuid);

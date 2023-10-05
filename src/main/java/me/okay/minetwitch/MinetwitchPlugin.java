@@ -49,8 +49,9 @@ public class MinetwitchPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         twitchHandler.disconnect();
-        // twitch4jEventManager.close();
+        twitch4jEventManager.close();
         linkedAccountsManager.saveCache();
+        linkedAccountsManager.stopAutoFlush();
         database.safeDisconnect();
     }
 

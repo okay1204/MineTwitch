@@ -3,6 +3,8 @@ package me.okay.minetwitch.twitch;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -119,7 +121,11 @@ public class TwitchHandler implements Listener {
         }
 
         if (shareMessage) {
-            String message = plugin.getConfig().getString("share-chat.twitch-to-minecraft.format.unlinked");
+            Optional<UUID> minecraftUuid = plugin.getLinkedAccountsManager().getMinecraftUuid(Integer.parseInt(event.getUser().getId()));
+
+            String message = plugin.getConfig().getString(
+                minecraftUuid.isPresent() ? "share-chat.twitch-to-minecraft.format.linked" : "share-chat.twitch-to-minecraft.format.unlinked"
+            );
             
             message = message.replaceAll("%twitch%", event.getUser().getName());
             message = message.replaceAll("%twitch-color%", "&" + event.getMessageEvent().getTagValue("color").orElse("4"));
@@ -148,8 +154,12 @@ public class TwitchHandler implements Listener {
         if (!event.getPlayer().hasPermission("minetwitch.broadcast.minecraft-to-twitch")) {
             return;
         }
-        
-        String message = plugin.getConfig().getString("share-chat.minecraft-to-twitch.format.unlinked");
+
+        Optional<Integer> twitchId = plugin.getLinkedAccountsManager().getTwitchId(event.getPlayer());
+
+        String message = plugin.getConfig().getString(
+            twitchId.isPresent() ?  "share-chat.minecraft-to-twitch.format.linked" : "share-chat.minecraft-to-twitch.format.unlinked"
+        );
         message = message.replaceAll("%player%", event.getPlayer().getName());
         message = message.replaceAll("%message%", event.getMessage());
 

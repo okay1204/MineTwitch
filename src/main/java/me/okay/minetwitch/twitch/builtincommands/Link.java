@@ -31,15 +31,15 @@ public class Link implements TwitchCommandExecutor {
             twitchBot.sendMessage("Invalid code! Please double check your code.");
             return;
         }
-        String twitchId = messageEvent.getUser().getId();
+        int twitchId = Integer.parseInt(messageEvent.getUser().getId());
 
-        plugin.getLinkCodeManager().removeCodes(minecraftUuid, twitchId);
+        plugin.getLinkCodeManager().removeCodes(minecraftUuid);
         
-        if (plugin.getLinkedAccountsManager().getMinecraftUuid(twitchId) != null) {
+        if (plugin.getLinkedAccountsManager().getMinecraftUuid(twitchId).isPresent()) {
             twitchBot.sendMessage("You are already linked to a Minecraft account! Please unlink your current account first using " + plugin.getCommandPrefix() + "unlink."); // TODO add !unlink command
             return;
         }
-        else if (plugin.getLinkedAccountsManager().getTwitchId(minecraftUuid) != null) {
+        else if (plugin.getLinkedAccountsManager().getTwitchId(minecraftUuid).isPresent()) {
             twitchBot.sendMessage("This Minecraft account is already linked to a Twitch account! Please unlink your current account first using \"/minetwitch unlink\" in game."); // TODO add /minetwitch unlink command
             return;
         }

@@ -1,5 +1,6 @@
 package me.okay.minetwitch.data.database;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.bukkit.OfflinePlayer;
@@ -9,15 +10,15 @@ public interface Database {
 
     public boolean isClosed();
 
-    public void setLinkedAccount(UUID minecraftUuid, String twitchId);
+    public void setLinkedAccount(UUID minecraftUuid, int twitchId);
 
     public void removeLinkedAccount(UUID minecraftUuid);
-    public void removeLinkedAccount(String twitchId);
+    public void removeLinkedAccount(int twitchId);
 
-    public default String getTwitchId(OfflinePlayer player) {
+    public default Optional<Integer> getTwitchId(OfflinePlayer player) {
         return getTwitchId(player.getUniqueId());
     }
-    public String getTwitchId(UUID minecraftUuid);
+    public Optional<Integer> getTwitchId(UUID minecraftUuid);
     
-    public UUID getMinecraftUuid(String twitchId);
+    public Optional<UUID> getMinecraftUuid(int twitchId);
 }
