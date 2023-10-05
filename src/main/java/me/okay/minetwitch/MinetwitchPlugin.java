@@ -1,7 +1,5 @@
 package me.okay.minetwitch;
 
-import java.util.Set;
-
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.philippheuer.events4j.core.EventManager;
@@ -42,7 +40,7 @@ public class MinetwitchPlugin extends JavaPlugin {
 
         twitchHandler = new TwitchHandler(this);
 
-        twitchHandler.registerCommand(new TwitchCommand(this, "link", Set.of(), new Link(this)));
+        twitchHandler.registerCommand(new TwitchCommand(this, "link", new Link(this)));
         
         // Commands
         new MinetwitchCommand(this);
